@@ -1,22 +1,37 @@
 .components {
   display: grid;
-  grid-template-columns: repeat(20, 100px);
+  grid-template-columns: repeat(10, 100px);
   grid-template-rows: repeat(10, 100px);
 }
 
-.pump {
+/* .pump {
   background-color: black;
   border-radius: 50%;
   border: 2px;
   height: 25px;
   width: 25px;
-}
+} */
 
 #core{
-  grid-area: 1 / 1 / 3 / 2;
+  grid-area: 2 / 1 / 4 / 2;
 }
 
-#reactor {
+#steamGenerator{
+  grid-area: 1 / 3 / 3 / 5;
+}
+
+#sstg{
+  grid-area: 2 / 7 / 3 / 8;
+}
+
+#condenser{
+  grid-area: 4 / 7 / 6 / 10;
+}
+
+#rxCoolantPump{
+  grid-area: 4 / 2 / 5 / 3;
+}
+/* #reactor {
   color: #000;
   position: absolute;
   margin-left: 2px;
@@ -49,7 +64,7 @@
   height: 1px;
   color: white;
   background-color: currentColor;
-}
+} */
 
 #rxCoolant {
   grid-row: 5;

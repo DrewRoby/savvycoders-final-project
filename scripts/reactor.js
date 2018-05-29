@@ -3,6 +3,7 @@ var sstgShape = document.getElementById( "sstg" );
 var coreShape = document.getElementById( "core" );
 var steamGeneratorShape = document.getElementById( "steamGenerator" );
 var condenserShape = document.getElementById( "condenser" );
+var rxCoolantPumpShape = document.getElementById( "rxCoolantPump" );
 
 var core = {
     "tIn": 75,
@@ -129,6 +130,23 @@ function draw(){
         ctx.lineTo( 250, 200 );
         ctx.quadraticCurveTo( 350, 100, 250, 0 );
         ctx.closePath();
+        ctx.stroke();
+    }
+
+    if( rxCoolantPumpShape.getContext ){
+        let ctx = rxCoolantPumpShape.getContext( "2d" );
+
+        ctx.beginPath();
+        ctx.moveTo( 100, 30 );
+        ctx.lineTo( 50, 30 );
+        ctx.arc( 50, 25, 5, Math.PI * 0.5, Math.PI * 1.5, false );
+        ctx.lineTo( 100, 20 );
+        ctx.moveTo( 75, 20 );
+        ctx.arcTo( 75, 0, 0, 0, 20 );
+        ctx.lineTo( 0, 0 );
+        ctx.moveTo( 0, 10 );
+        ctx.lineTo( 25, 10 );
+        ctx.arcTo( 25, 150, 75, 25, 25 );
         ctx.stroke();
     }
 }
