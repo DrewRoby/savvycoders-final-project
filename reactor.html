@@ -7,12 +7,16 @@
   <link rel="stylesheet" href="styles/reactor.css">
   <title>Start The Reactor! | Drew Roby</title>
 </head>
-<body>
-    <canvas id="canvas" width="300" height="300"></canvas>
-    <div class="components">
-      <div id="reactor"></div>
+<body onload="draw();">
+  <div class="components">
+  <canvas id="core" width="100" height="200"></canvas>
+  <canvas id="steamGenerator" width="200" height="200"></canvas>
+  <canvas id="sstg" width="100" height="100"></canvas>
+  <canvas id="condenser" width="300" height="200"></canvas>
+
+      <!-- <div id="reactor"></div> -->
       <div id="rxCoolant" class="pump"></div>
-      <div id="turbineGenerator"></div>
+      <!-- <div id="turbineGenerator"></div> -->
       <div id="mainEngine"></div>
       <div id="primaryPiping"></div>
       <div id="secondaryPiping"></div>
@@ -28,6 +32,6 @@
       <div id="feedSwitch"></div>
       <div id="condensateSwitch"></div>
     </div>
-
+<script src="/scripts/reactor.js" charset="utf-8"></script>
 </body>
 </html>
