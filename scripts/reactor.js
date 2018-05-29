@@ -1,3 +1,5 @@
+var canvas = document.getElementById('canvas')
+
 var core = {
   tIn: 75,
   tOut: 75,
@@ -16,16 +18,16 @@ var pressurizer = {
 
 var pumps = {
   rxCoolant: {
-    availableSpeed: ["Idle","Slow","Fast"],
-    currentSpeed: "Idle"
+    availableSpeed: ["idle","run"],
+    currentSpeed: "idle"
   },
   feed: {
-    availableSpeed: ["Idle","Slow","Fast"],
-    currentSpeed: "Idle"
+    availableSpeed: ["idle","run"],
+    currentSpeed: "idle"
   },
   condensate: {
-    availableSpeed: ["Idle","Slow","Fast"],
-    currentSpeed: "Idle"
+    availableSpeed: ["idle","run"],
+    currentSpeed: "idle"
   }
 }
 
@@ -67,6 +69,10 @@ var condenser = {
   waterLevel: 50 //in percent of total
 }
 
+var rxCoolantSwitch = document.querySelector('#rxCoolantSwitch');
+var feedSwitch = document.querySelector('#feedSwitch');
+var condensateSwitch = document.querySelector('#condensateSwitch');
+
 // Could I add a shim function to a shimSwitch element that does shimOut/shimIn in a single function?
 function shimOut() = {
     document.querySelector("#shimSwitch").addEventListener
@@ -78,10 +84,20 @@ function shimIn() = {
   //decrement core.rodHeight
 }
 
-function changePumpSpeed( input ){
-
+function changePumpSpeed( pumpID ){
+  document.querySelector(pumpID){
+    if(pumps.${pumpID}.currentSpeed==="idle"){
+      pumps.${pumpID}.currentSpeed = "run";
+    }else {
+      pumps.${pumpID}.currentSpeed = "idle"
+    }
+  }
 }
 
 function adjustValve( input ){
 
 }
+
+rxCoolantSwitch.addEventListener("onclick",changePumpSpeed("rxCoolant"));
+feedSwitch.addEventListener("onclick",changePumpSpeed("feed"));
+condensateSwitch.addEventListener("onclick",changePumpSpeed("condensate"));

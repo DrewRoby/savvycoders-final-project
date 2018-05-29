@@ -4,25 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="style.css">
-  <title>Document</title>
+  <link rel="stylesheet" href="styles/reactor.css">
+  <title>Start The Reactor! | Drew Roby</title>
 </head>
 <body>
+    <canvas id="canvas" width="300" height="300"></canvas>
     <div class="components">
-      <div id="reactor">Waaaade</div>
-      <div id="rcp">Start the reactor</div>
-      <div id="sstg"></div>
+      <div id="reactor"></div>
+      <div id="rxCoolant" class="pump"></div>
+      <div id="turbineGenerator"></div>
       <div id="mainEngine"></div>
-      <div id="pzr"></div>
       <div id="primaryPiping"></div>
       <div id="secondaryPiping"></div>
       <div id="steamPiping"></div>
       <div id="steamGenerator"></div>
-      <div id="feedPump"></div>
-      <div id="condPump"></div>
+      <div id="feed" class="pump"></div>
+      <div id="cond" class="pump"></div>
+      <div id="condenser"></div>
+
     </div>
     <div class="controls">
-
+      <div id="rxCoolantSwitch"></div>
+      <div id="feedSwitch"></div>
+      <div id="condensateSwitch"></div>
     </div>
 
 </body>
