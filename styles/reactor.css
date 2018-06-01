@@ -21,15 +21,36 @@
 }
 
 #sstg{
-  grid-area: 2 / 7 / 3 / 8;
+  grid-area: 1 / 6 / 3 / 8;
 }
 
 #condenser{
-  grid-area: 4 / 7 / 6 / 10;
+  grid-area: 3 / 6 / 5 / 9;
 }
 
 #rxCoolantPump{
   grid-area: 4 / 2 / 5 / 3;
+}
+
+#piping1_1{
+  grid-area: 1 / 1 / 5 / 2;
+}
+
+#piping1_2{
+  grid-area: 1 / 2 / 5 / 5;
+}
+
+#piping2_1{
+  grid-area: 1 / 4 / 3 / 8;
+}
+
+#piping2_2{
+  grid-area: 3 / 4 / 5 / 8;
+}
+
+#feedPump{
+  grid-area: 4 / 5 / 5 / 6;
+  padding-top: 50px;
 }
 /* #reactor {
   color: #000;
