@@ -9,24 +9,51 @@
 </head>
 <body onload="draw();">
   <div class="components">
-  <canvas id="core" width="100" height="200"></canvas>
-  <canvas id="steamGenerator" width="200" height="200"></canvas>
-  <canvas id="sstg" width="200" height="200"></canvas>
-  <canvas id="condenser" width="300" height="200"></canvas>
-  <canvas id="rxCoolantPump" width="100" height="50"></canvas>
-  <canvas id="piping1_1" width="100" height="400"></canvas>
-  <canvas id="piping1_2" width="300" height="400"></canvas>
-  <canvas id="piping2_1" width="400" height="200"></canvas>
-  <canvas id="piping2_2" width="400" height="200"></canvas>
-  <canvas id="feedPump" width="100" height="50"></canvas>
-
+    <!-- <canvas id="core" width="100" height="200"></canvas> -->
+    <div id="core"></div>
+    <div id="sstg"></div>
+    <div id="steamGenerator"></div>
+    <div id="condenser"></div>
+    <div id="rxCoolantPump"></div>
+    <div id="piping1_1"></div>
+    <div id="piping1_2"></div>
+    <div id="piping2_1"></div>
+    <div id="piping2_2"></div>
+    <div id="feedPump"></div>
+    <!-- <canvas id="steamGenerator" width="200" height="200"></canvas> -->
+    <!-- <canvas id="sstg" width="200" height="200"></canvas> -->
+    <!-- <canvas id="condenser" width="300" height="200"></canvas> -->
+    <!-- <canvas id="rxCoolantPump" width="100" height="50"></canvas>
+    <canvas id="piping1_1" width="100" height="400"></canvas>
+    <canvas id="piping1_2" width="300" height="400"></canvas>
+    <canvas id="piping2_1" width="400" height="200"></canvas>
+    <canvas id="piping2_2" width="400" height="200"></canvas>
+    <canvas id="feedPump" width="100" height="50"></canvas> -->
+    <div class="water">
+      <div id="primary">
+        <div class="water" id="hotLeg"></div>
+        <div class="water" id="coldLeg"></div>
+      </div>
+      <div id="secondary">
+        <div class="water" id="feed"></div>
+        <div class="steam"></div>
+      </div>
     </div>
+  </div>
+<p>fug</p>
     <div class="controls">
       <div id="rxCoolantSwitch"></div>
       <div id="feedSwitch"></div>
       <div id="shimSwitch"></div>
       <!-- <div id="condensateSwitch"></div> -->
     </div>
-<script src="/scripts/reactor.js" charset="utf-8"></script>
+
+     <!-- Scripts go here -->
+     <script src="/scripts/C2S.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenLite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TimelineLite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/plugins/CSSPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/plugins/ColorPropsPlugin.min.js"></script>
+    <script src="/scripts/reactor.js" charset="utf-8"></script>
 </body>
 </html>
