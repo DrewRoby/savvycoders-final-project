@@ -1,3 +1,17 @@
+body {
+  display: flex;
+  flex-direction: row;
+}
+
+.controls{
+  display: grid;
+  grid-template-columns: repeat(4, 50px);
+  grid-template-rows: repeat(8, 50px);
+  font-family: 'VT323', monospace;
+  color: red;
+  /* background-color: black; */
+}
+
 .components {
   display: grid;
   grid-template-columns: repeat(8, 100px);
@@ -46,7 +60,23 @@
   padding-top: 50px;
 }
 
-#hotLeg {
-  grid-area: ;
-  background-color: blue;
+#tHot {
+  grid-area: 2/3/3/5;
+  padding: 2px
+  margin-left: auto;
+}
+
+#tFuel {
+  grid-area: 4/3/5/5;
+  padding: 2px
+}
+
+#tCold {
+  grid-area: 6/3/7/5;
+  padding: 2px
+}
+
+#shimSwitch {
+  grid-area: 4/2/5/2;
+  padding: 2px
 }

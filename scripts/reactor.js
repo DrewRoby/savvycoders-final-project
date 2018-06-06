@@ -11,8 +11,8 @@ var piping2_1 = new C2S( 400, 200 );
 var piping2_2 = new C2S( 400, 200 );
 
 var core = {
-    "tIn": 75,
-    "tOut": 75,
+    "tCold": 75,
+    "tHot": 75,
     "tFuel": 75,
     "maxTemp": 5000,
     "pressure": 0,
@@ -234,11 +234,11 @@ function drawRxCoolantPump( ctx ){
     ctx.arc( 50, 25, 5, Math.PI * 0.5, Math.PI * 1.5, false );
     ctx.lineTo( 100, 20 );
     ctx.moveTo( 75, 20 );
-    ctx.arcTo( 75, 0, 0, 0, 20 );
+    ctx.arc( 50, 25, 25, Math.PI * 1.9, Math.PI * 1.5, true );
     ctx.lineTo( 0, 0 );
     ctx.moveTo( 0, 10 );
     ctx.lineTo( 25, 10 );
-    ctx.arcTo( 25, 150, 75, 25, 25 );
+    ctx.arc( 50, 25, 25, Math.PI * 1.2, Math.PI * 0.07, true );
     ctx.stroke();
 }
 
@@ -249,11 +249,11 @@ function drawFeedPump( ctx ){
     ctx.arc( 50, 25, 5, Math.PI * 0.5, Math.PI * 1.5, false );
     ctx.lineTo( 100, 20 );
     ctx.moveTo( 75, 20 );
-    ctx.arcTo( 75, 0, 0, 0, 20 );
+    ctx.arc( 50, 25, 25, Math.PI * 1.9, Math.PI * 1.5, true );
     ctx.lineTo( 0, 0 );
     ctx.moveTo( 0, 10 );
     ctx.lineTo( 25, 10 );
-    ctx.arcTo( 25, 150, 75, 25, 25 );
+    ctx.arc( 50, 25, 25, Math.PI * 1.2, Math.PI * 0.07, true );
     ctx.stroke();
 }
 
@@ -262,6 +262,17 @@ function fillGradient( object, color1, color2 ){
 
     gradient.addColorStop( 0, color1 );
     gradient.addColorStop( 1, color2 );
+}
+
+function changePumpSpeed( pumpID ){
+    if( pumpID.currentSpeed === "idle" ){
+        pumpID.currentSpeed = "run";
+
+        return "O";
+    }
+    pumpID.currentSpeed = "idle";
+
+    return "X";
 }
 
 drawCore( coreShape );
@@ -285,6 +296,13 @@ document.querySelector( "#piping1_1" ).innerHTML = piping1_1.getSerializedSvg();
 document.querySelector( "#piping1_2" ).innerHTML = piping1_2.getSerializedSvg();
 document.querySelector( "#piping2_1" ).innerHTML = piping2_1.getSerializedSvg();
 document.querySelector( "#piping2_2" ).innerHTML = piping2_2.getSerializedSvg();
+
+document.querySelector( "#tHot" ).innerHTML += "<h2>" + core.tHot + "</h2>";
+document.querySelector( "#tFuel" ).innerHTML += "<h2>" + core.tFuel + "</h2>";
+document.querySelector( "#tCold" ).innerHTML += "<h2>" + core.tCold + "</h2>";
+// document.querySelector( "#rxCoolantSwitch" ).innerHTML += ;
+// rxCoolantSwitch.innerHTML = changePumpSpeed();
+rxCoolantSwitch.addEventListener( "click",rxCoolantSwitch.innerHTML = changePumpSpeed( pumps.rxCoolant ) );
 // fillGradient( coreShape, "blue", "red" );
 // coreShape.getContext( "2d" ).fillRect( 0, 0, 100, 200 );
 
@@ -308,15 +326,6 @@ document.querySelector( "#piping2_2" ).innerHTML = piping2_2.getSerializedSvg();
 //   //decrement core.rodHeight
 // }
 //
-// function changePumpSpeed( pumpID ){
-//   document.querySelector(pumpID){
-//     if(pumps.${pumpID}.currentSpeed==="idle"){
-//       pumps.${pumpID}.currentSpeed = "run";
-//     }else {
-//       pumps.${pumpID}.currentSpeed = "idle"
-//     }
-//   }
-// }
 //
 // function adjustValve( input ){
 //
