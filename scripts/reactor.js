@@ -16,7 +16,7 @@ var core = {
     "tFuel": 75,
     "maxTemp": 5000,
     "pressure": 0,
-    "rodHeight": 0.0,
+    "rodHeight": 0,
     "shimSpeed": 1.0, // Do I need this?
     "currentPower": 0
 };
@@ -81,6 +81,7 @@ var condenser = {
 
 var rxCoolantSwitch = document.querySelector( "#rxCoolantSwitch" );
 var feedSwitch = document.querySelector( "#feedSwitch" );
+
 
 function drawCore( ctx ){
     ctx.beginPath();
@@ -297,12 +298,62 @@ document.querySelector( "#piping1_2" ).innerHTML = piping1_2.getSerializedSvg();
 document.querySelector( "#piping2_1" ).innerHTML = piping2_1.getSerializedSvg();
 document.querySelector( "#piping2_2" ).innerHTML = piping2_2.getSerializedSvg();
 
-document.querySelector( "#tHot" ).innerHTML += "<h2>" + core.tHot + "</h2>";
-document.querySelector( "#tFuel" ).innerHTML += "<h2>" + core.tFuel + "</h2>";
-document.querySelector( "#tCold" ).innerHTML += "<h2>" + core.tCold + "</h2>";
+var hotReadout = document.querySelector( "#tHot" ).innerHTML += "<h2>" + core.tHot + "</h2>";
+var fuelReadout = document.querySelector( "#tFuel" ).innerHTML += "<h2>" + core.tFuel + "</h2>";
+var coldReadout = document.querySelector( "#tCold" ).innerHTML += "<h2>" + core.tCold + "</h2>";
 // document.querySelector( "#rxCoolantSwitch" ).innerHTML += ;
 // rxCoolantSwitch.innerHTML = changePumpSpeed();
-rxCoolantSwitch.addEventListener( "click",rxCoolantSwitch.innerHTML = changePumpSpeed( pumps.rxCoolant ) );
+// const shimOut = new Event( "shimOut" );
+//
+// core.rodHeight.addEventListener( "shimOut",function( e ){
+//     core.rodHeight += 0.1;
+// } );
+var shimOutButton = document.getElementById( "shimOut" );
+var shimInButton = document.getElementById( "shimIn" );
+
+
+function changeCoreTemp(){
+    let targetTemp = core.rodHeight * 25 + 75;
+    let diff = targetTemp - core.tFuel;
+
+    // let fueltemp = document.querySelector()
+
+    // console.log( "tgt tmp: " + targetTemp );
+    // console.log( "diff: " + diff );
+    while( diff ){
+        if( diff > 0 ){
+            core.tFuel += 1;// Math.ceil( diff / 25 );
+            document.querySelector( "#tFuel" ).innerHTML = "<h2>" + core.tFuel + "</h2>";
+            setTimeout( () => resolve, 1000 );
+        }
+        else if( diff < 0 ){
+            core.tFuel -= 1;// Math.round( diff / 25 );
+            document.querySelector( "#tFuel" ).innerHTML = "<h2>" + core.tFuel + "</h2>";
+        }
+        diff = targetTemp - core.tFuel;
+    }
+
+    return ( core.tFuel );
+}
+
+
+shimOutButton.addEventListener( "click",function shimOut(){
+    core.rodHeight += 1;
+    changeCoreTemp();
+    console.log( "rod height: " + core.rodHeight );
+    console.log( "fuel temp: " + core.tFuel );
+} );
+shimInButton.addEventListener( "click",function shimIn(){
+    if( core.rodHeight ){
+        core.rodHeight -= 1;
+    }
+    changeCoreTemp();
+    // console.log( core.rodHeight );
+}
+);
+
+
+// rxCoolantSwitch.addEventListener( "click",rxCoolantSwitch.innerHTML = changePumpSpeed( pumps.rxCoolant ) );
 // fillGradient( coreShape, "blue", "red" );
 // coreShape.getContext( "2d" ).fillRect( 0, 0, 100, 200 );
 
@@ -334,3 +385,5 @@ rxCoolantSwitch.addEventListener( "click",rxCoolantSwitch.innerHTML = changePump
 // rxCoolantSwitch.addEventListener( "onclick",changePumpSpeed( "rxCoolant" ) );
 // feedSwitch.addEventListener( "onclick",changePumpSpeed( "feed" ) );
 // condensateSwitch.addEventListener( "onclick",changePumpSpeed( "condensate" ) );
+
+// funs
