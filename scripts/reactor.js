@@ -14,6 +14,7 @@ var core = {
     "tCold": 75,
     "tHot": 75,
     "tFuel": 75,
+    "tSG": 75,
     "maxTemp": 5000,
     "pressure": 0,
     "rodHeight": 0,
@@ -265,16 +266,6 @@ function fillGradient( object, color1, color2 ){
     gradient.addColorStop( 1, color2 );
 }
 
-function changePumpSpeed( pumpID ){
-    if( pumpID.currentSpeed === "idle" ){
-        pumpID.currentSpeed = "run";
-
-        return "O";
-    }
-    pumpID.currentSpeed = "idle";
-
-    return "X";
-}
 
 drawCore( coreShape );
 drawSSTG( sstgShape );
@@ -298,60 +289,102 @@ document.querySelector( "#piping1_2" ).innerHTML = piping1_2.getSerializedSvg();
 document.querySelector( "#piping2_1" ).innerHTML = piping2_1.getSerializedSvg();
 document.querySelector( "#piping2_2" ).innerHTML = piping2_2.getSerializedSvg();
 
-var hotReadout = document.querySelector( "#tHot" ).innerHTML += "<h2>" + core.tHot + "</h2>";
-var fuelReadout = document.querySelector( "#tFuel" ).innerHTML += "<h2>" + core.tFuel + "</h2>";
-var coldReadout = document.querySelector( "#tCold" ).innerHTML += "<h2>" + core.tCold + "</h2>";
-// document.querySelector( "#rxCoolantSwitch" ).innerHTML += ;
-// rxCoolantSwitch.innerHTML = changePumpSpeed();
-// const shimOut = new Event( "shimOut" );
-//
-// core.rodHeight.addEventListener( "shimOut",function( e ){
-//     core.rodHeight += 0.1;
-// } );
+
+
+// Fun with Reactor Controls
+var hotReadout = document.querySelector( "#tHot" );
+hotReadout.innerHTML += "<h2>" + core.tHot + "</h2>";
+var fuelReadout = document.querySelector( "#tFuel" );
+fuelReadout.innerHTML += "<h2>" + core.tFuel + "</h2>";
+var coldReadout = document.querySelector( "#tCold" );
+coldReadout.innerHTML += "<h2>" + core.tCold + "</h2>";
+var sgReadout = document.querySelector( "#tSG" );
+sgReadout.innerHTML += "<h2>" + core.tSG + "</h2>";
 var shimOutButton = document.getElementById( "shimOut" );
 var shimInButton = document.getElementById( "shimIn" );
+var rcpSwitch = document.querySelector( "#rxCoolantSwitch" );
 
 
-function changeCoreTemp(){
+function changeElementTemp(diff, coreElem){
     let targetTemp = core.rodHeight * 25 + 75;
-    let diff = targetTemp - core.tFuel;
-
-    // let fueltemp = document.querySelector()
-
-    // console.log( "tgt tmp: " + targetTemp );
-    // console.log( "diff: " + diff );
-    while( diff ){
-        if( diff > 0 ){
-            core.tFuel += 1;// Math.ceil( diff / 25 );
-            document.querySelector( "#tFuel" ).innerHTML = "<h2>" + core.tFuel + "</h2>";
-            setTimeout( () => resolve, 1000 );
-        }
-        else if( diff < 0 ){
-            core.tFuel -= 1;// Math.round( diff / 25 );
-            document.querySelector( "#tFuel" ).innerHTML = "<h2>" + core.tFuel + "</h2>";
-        }
-        diff = targetTemp - core.tFuel;
+    if( diff > 0 ){
+      core[coreElem] += 1
     }
-
-    return ( core.tFuel );
+    else if( diff < 0 ){
+      core[coreElem] -= 1
+    }
 }
 
+const delay = ( ms ) => new Promise(resolve =>
+  setTimeout( resolve, ms )
+)
+
+function calcTargetTemp(elem){
+  let targetTemp = 0;
+
+  if (elem == "tFuel"){
+    targetTemp = core.rodHeight * 25 + 75;
+  } else if (elem == "tHot") {
+    if (core.rodHeight<2){
+      targetTemp = core.tFuel
+
+    }else {
+      targetTemp = core.tFuel - 25
+    }
+  } else if (elem == "tCold"){
+    targetTemp = core.tSG + 5
+  } else if (elem == "tSG"){
+    targetTemp = core.tHot - 10
+  }
+  return targetTemp;
+}
+
+const changeTemp = async function (ms, coreElem){
+  let targetTemp = calcTargetTemp(coreElem)
+  let diff = targetTemp - core[coreElem];
+
+  while (diff !==  0){
+    changeElementTemp(diff, coreElem);
+    diff = targetTemp - core[coreElem];
+    document.querySelector( "#"+coreElem ).innerHTML = "<h2>" + core[coreElem] + "</h2>";
+    console.log(core.rodHeight, targetTemp, core[coreElem], diff)
+    targetTemp = calcTargetTemp(coreElem)
+    await delay(ms);
+
+  }
+}
 
 shimOutButton.addEventListener( "click",function shimOut(){
-    core.rodHeight += 1;
-    changeCoreTemp();
-    console.log( "rod height: " + core.rodHeight );
-    console.log( "fuel temp: " + core.tFuel );
+  core.rodHeight += 1;
+  changeTemp(250, "tFuel");
 } );
-shimInButton.addEventListener( "click",function shimIn(){
-    if( core.rodHeight ){
-        core.rodHeight -= 1;
-    }
-    changeCoreTemp();
-    // console.log( core.rodHeight );
-}
-);
 
+shimInButton.addEventListener( "click",function shimIn(){
+  if( core.rodHeight ){
+    core.rodHeight -= 1;
+    changeTemp(500, "tFuel")
+  }
+});
+
+
+//Fun with Pump Controls
+function changePumpSpeed( pumpID ){
+  if( pumpID.currentSpeed === "idle" ){
+    pumpID.currentSpeed = "run";
+    changeTemp(750, "tHot");
+    changeTemp(1000, "tSG");
+    changeTemp(1250, "tCold");
+
+    return "O";
+  }
+  pumpID.currentSpeed = "idle";
+
+  return "X";
+}
+
+
+rcpSwitch.addEventListener("click",(_ => rcpSwitch.innerHTML = changePumpSpeed(pumps.rxCoolant)))
+feedSwitch.addEventListener("click",(_ => feedSwitch.innerHTML = changePumpSpeed(pumps.rxCoolant)))
 
 // rxCoolantSwitch.addEventListener( "click",rxCoolantSwitch.innerHTML = changePumpSpeed( pumps.rxCoolant ) );
 // fillGradient( coreShape, "blue", "red" );
@@ -385,5 +418,3 @@ shimInButton.addEventListener( "click",function shimIn(){
 // rxCoolantSwitch.addEventListener( "onclick",changePumpSpeed( "rxCoolant" ) );
 // feedSwitch.addEventListener( "onclick",changePumpSpeed( "feed" ) );
 // condensateSwitch.addEventListener( "onclick",changePumpSpeed( "condensate" ) );
-
-// funs

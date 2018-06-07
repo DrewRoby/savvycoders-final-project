@@ -18,6 +18,34 @@ body {
   grid-template-rows: repeat(4, 100px);
 }
 
+#shimSwitch {
+  grid-area: 2/1/3/2;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  padding: 2px;
+  z-index: 1;
+}
+
+#rxCoolantSwitch {
+  z-index: 1;
+  grid-area: 4/2/5/3;
+  /* padding-top: 50px; */
+  height: 50px;
+  width: 50px;
+  margin-left: 25px;
+  margin-top: 50px;
+}
+
+#feedSwitch{
+  z-index: 1;
+  grid-area: 4/5/5/6;
+  height: 50px;
+  width: 50px;
+  margin-left: 25px;
+  margin-bottom: 50px;
+}
+
 #core{
   grid-area: 2 / 1 / 4 / 2;
   /* background-color: blue; */
@@ -61,22 +89,44 @@ body {
 }
 
 #tHot {
-  grid-area: 2/3/3/5;
+  grid-area: 2/4/3/5;
   padding: 2px
   margin-left: auto;
 }
 
+#tHotLabel{
+  grid-area: 2/3/3/4;
+  color: black;
+}
+
 #tFuel {
-  grid-area: 4/3/5/5;
+  grid-area: 4/4/5/5;
   padding: 2px
+}
+
+#tFuelLabel{
+  grid-area: 4/3/5/4  ;
+  color: black;
 }
 
 #tCold {
-  grid-area: 6/3/7/5;
+  grid-area: 6/4/7/5;
   padding: 2px
 }
 
-#shimSwitch {
-  grid-area: 4/2/5/2;
-  padding: 2px
+#tColdLabel {
+  grid-area: 6/3/7/4;
+  color: black;
+}
+
+#tSGLabel {
+  grid-area: 1/2/2/4;
+  margin: 0;
+  font-family: 'VT323', monospace;
+}
+
+#tSG {
+  grid-area: 1/3/2/4;
+  font-family: 'VT323', monospace;
+  color: red;
 }

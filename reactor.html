@@ -11,19 +11,26 @@
 <body>
 
   <div class="controls">
-    <button id="rxCoolantSwitch">RCP Status:</button>
-    <div id="tHot">Hot Leg Temp:</div>
-    <div id="tFuel">Fuel Temp:</div>
+    <h3 id="tHotLabel">Hot Leg Temp</h3>
+    <div id="tHot"></div>
+    <h3 id="tFuelLabel">Fuel Temp</h3>
+    <div id="tFuel"></div>
+    <h3 id="tColdLabel">Cold Leg Temp</h3>
+    <div id="tCold"></div>
+
+  </div>
+
+  <div class="components">
+    <h3 id="tSGLabel">Steam Generator Temp</h3>
+    <div id="tSG"></div>
     <div id="shimSwitch">
       <button id="shimOut">Rods Up</button>
       <button id="shimIn">Rods Down</button>
     </div>
-    <div id="tCold">Cold Leg Temp:</div>
-    <div id="feedSwitch">Feed Pump Status: </div>
-  </div>
 
-  <div class="components">
-    <!-- <canvas id="core" width="100" height="200"></canvas> -->
+    <button id="rxCoolantSwitch">X</button>
+    <button id="feedSwitch">X</button>
+
     <div id="core"></div>
     <div id="sstg"></div>
     <div id="steamGenerator"></div>
